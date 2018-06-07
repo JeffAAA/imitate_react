@@ -11,10 +11,11 @@ npm start
   - createElement
   - Component
     - setState
-    - diff比对函数
+    - ~~Diff比对函数~~
     - componentWillMount
     - componentWillUpdate
     - componentDidMount
     - componentDidUpdate
 - react-dom
   - render
+
