@@ -49,7 +49,7 @@ const FuncConponent = function ({ text = '' }) {
     </div>
 }
 
-let node = <div className="ds">
+let node = <div className="node">
     <div className="node" style={style}>
         dom组件
     </div>

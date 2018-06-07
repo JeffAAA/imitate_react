@@ -165,7 +165,6 @@ const renderComponent = function (component) {
  * @param {*} vNode 
  */
 const diff = function (dom, vNode) {
-    // const ret = diffNode(dom, vNode);
     let newNode = dom;
     if (typeof vNode === 'string') {
         if (dom && dom.nodetype === 3) {
@@ -178,7 +177,7 @@ const diff = function (dom, vNode) {
         }
     }
     if (typeof vNode.type === 'function') {
-        diffComponent(dom, vNode);
+        newNode = diffComponent(dom, vNode);
     }
     //如果虚拟node类型为元素，且与真实dom标签类型不同，则替换为虚拟node的类型
     if (_.isEmpty(dom) || !isSameNodeType(dom, vNode)) {
@@ -189,11 +188,12 @@ const diff = function (dom, vNode) {
         dom && dom.parentNode && dom.parentNode.replaceChild(newNode, dom);
         if (vNode.children && vNode.children.length > 0) {
             //比对子元素
-            // diffChildren(newNode, vNode.children);
+            diffChildren(newNode, vNode.children);
         }
         //比对属性
         diffAttributes(newNode, vNode);
     }
+    return newNode
 }
 
 /**
@@ -214,9 +214,18 @@ const isSameNodeType = function (dom, vNode) {
     return dom && dom._component && dom._component.constructor === vNode.type;
 }
 
-const diffChildren = function () {
 
-}
+// const diffChildren = function (newNode = {}, vChildren = []) {
+//     const domChildNodes = newNode.childNodes;
+//     const childrenWithKey = _.filter(domChildNodes, item => item.key);
+//     const childrenNoKey = _.filter(domChildNodes, item => !item.key);
+//     const vChildrenWithKey = _.filter(vChildren, item => item.key);
+//     const vChildrenNoKey = _.filter(vChildren, item => !item.key);
+//     _.each(vChildrenWithKey, item => {
+//         let newNode = diff(childrenWithKey[item.key], item);
+
+//     })
+// }
 
 /**
  * diffAttributes
@@ -235,7 +244,7 @@ const diffAttributes = function (dom, vNode) {
 }
 
 const diffComponent = function () {
-    
+
 }
 
 
